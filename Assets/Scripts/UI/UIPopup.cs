@@ -16,7 +16,8 @@ namespace SR.UI
         Inventory,
         Reward,
         OpenAnimation,
-        RequestBuyTurn
+        RequestBuyTurn,
+        SomethingError
     }
 
     public class UIPopup : MonoBehaviour
@@ -25,6 +26,8 @@ namespace SR.UI
         public PopupName PopupName => _popupName;
 
         protected Dictionary<string, object> _customProperties;
+
+        public virtual void Setup(object data =null) {}
 
         public virtual void Show(Dictionary<string, object> customProperties = null)
         {
