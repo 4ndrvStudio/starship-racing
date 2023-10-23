@@ -10,9 +10,9 @@ namespace SR
     public class User : MonoBehaviour
     {
         public static User Instance;
-        public static string UserAddress = "0x3735bbb3921bd1e363e02fd47f83d200c613df78";
-        public static UserData UserData;
-        public static int SynceTime = 0;
+        public string UserAddress = "0x3735bbb3921bd1e363e02fd47f83d200c613df78";
+        public UserData UserData;
+        public int SynceTime = 0;
         public string RoundId;
 
         void Awake()
@@ -26,6 +26,8 @@ namespace SR
             UnityApiService.Instance.Get("profile", "address", UserAddress,
               res =>
               {
+                  Debug.Log(res);
+
                   UserResponse userResponse = JsonConvert.DeserializeObject<UserResponse>(res);
                   UserData = userResponse.Data;
 
@@ -96,10 +98,12 @@ namespace SR
             UnityApiService.Instance.Post("start-game", null, jsonBody,
                 res =>
                 {
+                    Debug.Log(res);
                     StartGameRespone respone = JsonConvert.DeserializeObject<StartGameRespone>(res);
                     onSuccess?.Invoke(respone);
                 }, err =>
                 {
+                    Debug.Log(err);
                     StartGameRespone error = JsonConvert.DeserializeObject<StartGameRespone>(err);
                     onFail?.Invoke(error);
                 }

@@ -16,17 +16,17 @@ namespace SR
         // Start is called before the first frame update
         void Start()
         {
-            _buttonOpen.onClick.AddListener(OnOpen);
+            //_buttonOpen.onClick.AddListener(OnOpen);
 
         }
         
         public void Setup(BagsRespone bag) {
-            _imageIcon.sprite = _listItemSprite[bag.Type-1];
-            _bag = bag;
+           // _imageIcon.sprite = _listItemSprite[bag.Type-1];
+           // _bag = bag;
             _textQuantity.text = bag.Amount.ToString();
         }
         public void SetupNull() {
-             
+            _textQuantity.text = "0";
         }
 
         public void OnOpen() {

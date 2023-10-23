@@ -23,7 +23,7 @@ namespace SR
 
         public void LateUpdate()
         {
-            _textOwner.text = User.UserData.Owner.ToString("N0") + " Owner";
+            _textOwner.text = User.Instance.UserData.Owner.ToString("N0") + " Owner";
         }
 
         public override void Show(Dictionary<string, object> customProperties)

@@ -201,7 +201,7 @@ namespace SR.UI
             }
 
             if(_currentType == 3 ) {
-                _textTotal.color = User.UserData.Owner < _currentPrice*_buyCount? Color.red : Color.white;
+                _textTotal.color = User.Instance.UserData.Owner < _currentPrice*_buyCount? Color.red : Color.white;
             } else
             {
                 _textTotal.color = Color.white;
@@ -211,7 +211,7 @@ namespace SR.UI
         public override void Show(Dictionary<string, object> customProperties)
         {
             base.Show(customProperties);
-            _textOwnerBalance.text = "Your Owner: " + User.UserData.Owner.ToString("N0") + " Owner";
+            _textOwnerBalance.text = "Your Owner: " + User.Instance.UserData.Owner.ToString("N0") + " Owner";
 
             bool isSuccess = bool.Parse(customProperties["isSuccess"].ToString());
             bool isStartBuy = bool.Parse(customProperties["isStartBuy"].ToString());

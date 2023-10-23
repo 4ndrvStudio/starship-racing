@@ -14,6 +14,8 @@ namespace SR
         public string SceneGameplay = "scene_gameplay";
 
         public bool IsInGame = false;
+        public int CurrentSelect=0;
+        public int ResultRank;
         // Start is called before the first frame update
         void Start()
         {
@@ -21,13 +23,18 @@ namespace SR
                 Instance = this;
 
             Application.targetFrameRate = 60;
+            WalletConnected();
         }
 
         public void WalletConnected()
         {
             GetUserProfile();
         }
-        public void GetUserProfile() => User.Instance.GetUserProfile(GoToMainMenu);
+        public void GetUserProfile() => User.Instance.GetUserProfile(() =>
+        {
+            SceneManager.LoadScene(SceneMenu);
+
+        });
 
         public void GoToMainMenu()
         {
@@ -37,6 +44,7 @@ namespace SR
 
         public void PlayGame(int type)
         {
+            CurrentSelect = type;
             UIManager.Instance.ShowPopup(PopupName.Waiting);
             User.Instance.StartGame(type,
                 res =>
@@ -46,6 +54,8 @@ namespace SR
                         {"Status", true},
                         {"StartGameRespone", res}
                     };
+                    ResultRank = res.Data.Result;
+                    
                     UIManager.Instance.Setup(PopupName.Result, dataPopup);
                     UIManager.Instance.HidePopup(PopupName.Waiting);
                     UIManager.Instance.HidePopup(PopupName.Result);
@@ -67,6 +77,10 @@ namespace SR
         {
             IsInGame =false;
             UIManager.Instance.ShowPopup(PopupName.Result);
+        }
+        public void QuitGameplay()
+        {
+            SceneManager.LoadScene(SceneMenu);
         }
 
 

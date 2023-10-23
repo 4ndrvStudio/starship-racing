@@ -54,7 +54,7 @@ namespace SR
         public void Receive_AccountAddress(string address)
         {
             Debug.Log("Unity Connected Account :" + address);
-            User.UserAddress = address;
+            User.Instance.UserAddress = address;
             GameplayManager.Instance.WalletConnected();
         }
         //Get account

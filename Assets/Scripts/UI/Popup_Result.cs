@@ -19,10 +19,19 @@ namespace SR
 
         [SerializeField] private List<GameObject> _itemList = new();
 
+        private void Start()
+        {
+            _btnAgain.onClick.AddListener(() => UIManager.Instance.ShowPopup(PopupName.SelectSpaceship));
+            _btnCancel.onClick.AddListener(() => {
+                GameplayManager.Instance.QuitGameplay();
+                Hide();
+            });
+        }
+
         public override void Setup(object data)
         {
             base.Setup(data);
-            Dictionary<string, object> dataInput = new Dictionary<string, object>();
+            Dictionary<string, object> dataInput = data as Dictionary<string, object>;
             bool status = bool.Parse(dataInput["Status"].ToString());
             StartGameRespone startGameRespone = dataInput["StartGameRespone"] as StartGameRespone;
 
@@ -48,8 +57,8 @@ namespace SR
 
         public void LateUpdate()
         {
-            _textYourTurn.text = User.UserData.NumberOfTurns.ToString();
-            _textOwner.text = User.UserData.Token.ToString();
+            _textYourTurn.text = User.Instance.UserData.NumberOfTurns.ToString();
+            _textOwner.text = User.Instance.UserData.Owner.ToString();
         }
     }
 }

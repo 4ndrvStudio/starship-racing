@@ -17,7 +17,9 @@ namespace SR.UI
         Reward,
         OpenAnimation,
         RequestBuyTurn,
-        SomethingError
+        SomethingError,
+        SelectSpaceship
+
     }
 
     public class UIPopup : MonoBehaviour
