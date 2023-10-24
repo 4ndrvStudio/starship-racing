@@ -3939,7 +3939,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _imageIcon: {fileID: 65251567}
-  _listItemSprite: []
+  _listItemSprite:
+  - {fileID: 21300000, guid: 8041a9acc31e8bb429685e4eb62cee4d, type: 3}
+  - {fileID: 21300000, guid: 7f59df80bccc867418a24469786b9a5f, type: 3}
+  - {fileID: 21300000, guid: b0a71a81709bbdc4ca15bbc081fb8384, type: 3}
   _buttonOpen: {fileID: 0}
   _textQuantity: {fileID: 1057130530}
 --- !u!1 &994296107

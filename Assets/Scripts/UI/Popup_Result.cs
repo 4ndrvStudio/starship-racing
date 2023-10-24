@@ -45,12 +45,15 @@ namespace SR
                     GameObject itemOb = Instantiate(_itemOb, _itemHolder.transform);
                     itemOb.GetComponent<ItemSlot>().Setup(item);
                     _itemList.Add(itemOb);
+                    itemOb.gameObject.SetActive(true);
                 });
             } else {
                 _textTitle.text = "Fail";
                 GameObject itemOb = Instantiate(_itemOb, _itemHolder.transform);
                 itemOb.GetComponent<ItemSlot>().SetupNull();
                 _itemList.Add(itemOb);
+                itemOb.gameObject.SetActive(true);
+
             }
 
         }

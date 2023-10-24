@@ -64,8 +64,9 @@ namespace SR
                 }, err =>
                 {
                    UIManager.Instance.HidePopup(PopupName.Waiting);
+
                    if(err.Error.Contains("numberOfTurns")) {
-                        UIManager.Instance.Setup(PopupName.RequestBuyTurn);
+                        UIManager.Instance.ShowPopup(PopupName.RequestBuyTurn);
                    } else {
                         UIManager.Instance.ShowPopup(PopupName.SomethingError);
                    }

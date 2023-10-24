@@ -12,16 +12,18 @@ namespace SR
         [SerializeField] private List<Transform> _spaceshipsList = new();
         [SerializeField] private CinemachineVirtualCamera _cineCam;
         [SerializeField] private TextMeshProUGUI _timeText;
-        private bool isStart = false;
+        [SerializeField] private List<float> targetSpeed;
+        [SerializeField] private bool isStart = false;
+        [SerializeField] private Transform _followPoint;
         private int _currentSelect;
         private int _resultRank;
-        private float TimeCal;
+        [SerializeField] private float TimeCal =3;
 
         private void Setup(int currentSelect)
         {
             _currentSelect = currentSelect;
             _resultRank = GameplayManager.Instance.ResultRank-1;
-            _cineCam.Follow = _spaceshipsList[currentSelect];
+            _cineCam.Follow = _followPoint;
             TimeCal = 3f;
         }
 
@@ -29,12 +31,14 @@ namespace SR
         // Start is called before the first frame update
         void Start()
         {
-            Setup(1);
+            targetSpeed = new();
+            Setup(GameplayManager.Instance.CurrentSelect);
         }
 
         // Update is called once per frame
         void Update()
         {
+            _followPoint.transform.position = new Vector3(0, _spaceshipsList[_currentSelect].position.y, 0f);
             if (TimeCal > 0 && !isStart)
             {
                 TimeCal -= Time.deltaTime;
@@ -44,23 +48,22 @@ namespace SR
 
             if(TimeCal<=0 && isStart == false)
             {
+                isStart = true;
                 _timeText.gameObject.SetActive(false);
                 StartRace();
-                isStart = true;
             }
         }
 
         public void StartRace()
         {
 
-
+            Debug.Log("Call");
             float speed = 20f;
-            List<float> targetSpeed = new(3);
             targetSpeed.Add(speed);
-            float speed2 = Random.Range(speed + 0.1f, speed + 1f);
+            float speed2 = Random.Range(speed + 0.5f, speed + 2f);
             targetSpeed.Add(speed2);
-            targetSpeed.Add(Random.Range(speed2 + 0.1f, speed2 + 1f));
-
+            targetSpeed.Add(Random.Range(speed2 + 0.5f, speed2 + 2f));
+            Debug.Log(targetSpeed.Count);
             float targetSpacshipSpeed1 = targetSpeed[_resultRank];
             targetSpeed.RemoveAt(_resultRank);
             _spaceshipsList[_currentSelect].transform.DOMoveY(60f, targetSpacshipSpeed1).SetEase(Ease.InSine);
@@ -78,11 +81,14 @@ namespace SR
                     } else
                     {
                         _spaceshipsList[i].transform.DOMoveY(60f, targetSpeed[0]).SetEase(Ease.InSine);
+
                     }
 
 
                 }
             }
+            targetSpeed.Clear();
+
          }
     }
 }

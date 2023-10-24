@@ -74,8 +74,8 @@ namespace SR
 
                 if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
                 {
-                    Debug.LogError("Error: " + JsonConvert.SerializeObject(webRequest));
-                    error.Invoke(webRequest.error);
+                    Debug.LogError("Error: " + JsonConvert.SerializeObject(webRequest.downloadHandler.text));
+                    error.Invoke(webRequest.downloadHandler.text);
                 }
                 else
                 {
@@ -93,8 +93,9 @@ namespace SR
 
                 if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
                 {
-                    Debug.LogError("Error: " + JsonConvert.SerializeObject(webRequest));
-                    error.Invoke(webRequest.error);
+                   Debug.LogError("Error: " + JsonConvert.SerializeObject(webRequest.downloadHandler.text));
+                       
+                    error.Invoke(webRequest.downloadHandler.text);
                 }
                 else
                 {

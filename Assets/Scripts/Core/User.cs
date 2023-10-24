@@ -103,8 +103,8 @@ namespace SR
                     onSuccess?.Invoke(respone);
                 }, err =>
                 {
-                    Debug.Log(err);
                     StartGameRespone error = JsonConvert.DeserializeObject<StartGameRespone>(err);
+                    Debug.Log(error.Error);
                     onFail?.Invoke(error);
                 }
             );
@@ -218,7 +218,7 @@ namespace SR
     {
         public int? Status;
         public string? Error;
-        public StartGameData Data;
+        public StartGameData? Data;
     }
 
     public class StartGameData {
@@ -230,7 +230,7 @@ namespace SR
     public class GetBagsRespone
     {
         public string? Error;
-        public List<BagsRespone> Data;
+        public List<BagsRespone>? Data;
 
     }
     public class BagsRespone

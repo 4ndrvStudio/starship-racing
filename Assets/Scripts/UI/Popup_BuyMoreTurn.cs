@@ -96,7 +96,7 @@ namespace SR.UI
             {
                 if (_status == true)
                 {
-                    if (_isRequestBuyTurn == false)
+                    //if (_isRequestBuyTurn == false)
                         //GameplayManager.Instance.NextGame(true);
 
                     Hide();

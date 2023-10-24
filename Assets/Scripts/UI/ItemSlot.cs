@@ -21,7 +21,7 @@ namespace SR
         }
         
         public void Setup(BagsRespone bag) {
-           // _imageIcon.sprite = _listItemSprite[bag.Type-1];
+            _imageIcon.sprite = _listItemSprite[bag.Type-1];
            // _bag = bag;
             _textQuantity.text = bag.Amount.ToString();
         }
