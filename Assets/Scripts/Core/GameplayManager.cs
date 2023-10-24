@@ -51,7 +51,7 @@ namespace SR
                 {
                     IsInGame = true;
                     Dictionary<string, object> dataPopup = new Dictionary<string, object>() {
-                        {"Status", true},
+                        {"Status", res.Data.Result == 3 ? false : true},
                         {"StartGameRespone", res}
                     };
                     ResultRank = res.Data.Result;

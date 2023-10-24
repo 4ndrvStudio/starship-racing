@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-namespace SR
+namespace SR.UI
 {
     public class ItemSlot : MonoBehaviour
     {
@@ -12,38 +12,48 @@ namespace SR
         [SerializeField] private Button _buttonOpen;
         [SerializeField] private BagsRespone _bag;
         [SerializeField] private TextMeshProUGUI _textQuantity;
+        [SerializeField] private GameObject _quantityFrame;
+        public bool CanOpen = false;
         
         // Start is called before the first frame update
         void Start()
         {
-            //_buttonOpen.onClick.AddListener(OnOpen);
+            _buttonOpen.onClick.AddListener(OnOpen);
 
         }
         
         public void Setup(BagsRespone bag) {
             _imageIcon.sprite = _listItemSprite[bag.Type-1];
-           // _bag = bag;
+            _bag = bag;
             _textQuantity.text = bag.Amount.ToString();
         }
         public void SetupNull() {
-            _textQuantity.text = "0";
+            _quantityFrame.gameObject.SetActive(false);
+            _textQuantity.gameObject.SetActive(false);
+            _imageIcon.sprite = _listItemSprite[3];
+
         }
 
         public void OnOpen() {
-            // UIManager.Instance.ShowPopup(PopupName.OpenAnimation, new Dictionary<string, object> {
-            //     {"BagType", _bag.Type}
-            // });
-            // User.OpenBags(_bag.Type, _bag.Amount, (res) => {
-            //     Dictionary<string, object> dict = new Dictionary<string,object>() {
-            //         {"data", res}
-            //     };
-            //     UIManager.Instance.ShowPopup(PopupName.Reward,dict);
-            // },
-            // () => {
-            //     Debug.Log("open fail");
-            // });
+            if (CanOpen == false) return;
 
-            // UIManager.Instance.HidePopup(PopupName.Inventory);
+            UIManager.Instance.ShowPopup(PopupName.OpenAnimation, new Dictionary<string, object> {
+                 {"BagType", _bag.Type}
+             });
+            User.Instance.OpenBags(_bag.Type, _bag.Amount, (res) =>
+            {
+                Dictionary<string, object> dict = new Dictionary<string, object>() {
+                     {"data", res}
+                 };
+                UIManager.Instance.ShowPopup(PopupName.Reward, dict);
+            },
+            (err) =>
+            {
+                Debug.Log("open fail");
+
+            });
+
+            UIManager.Instance.HidePopup(PopupName.Inventory);
         }
     }
 }

@@ -3765,6 +3765,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _btnStart: {fileID: 7514158080401022391}
   _btnQuit: {fileID: 3084963895943745625}
+  _buttonInventory: {fileID: 173573776387296344}
+  _buttonCoppyAddress: {fileID: 8713661139257907903}
+  _numOfTurnText: {fileID: 4609781342401292535}
+  _buttonText: {fileID: 0}
+  _addressText: {fileID: 6785279331450741110}
 --- !u!222 &6583740838920096593
 CanvasRenderer:
   m_ObjectHideFlags: 0

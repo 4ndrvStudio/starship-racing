@@ -28,7 +28,7 @@ namespace SR
                 });
             });
             _btnStartGame.onClick.AddListener(() => {
-            GameplayManager.Instance.PlayGame(_currentType);
+                GameplayManager.Instance.PlayGame(_currentType);
                 Hide();
             });
             _btnCancel.onClick.AddListener(Hide);

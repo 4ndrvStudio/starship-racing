@@ -39,6 +39,7 @@ namespace SR
         void Update()
         {
             _followPoint.transform.position = new Vector3(0, _spaceshipsList[_currentSelect].position.y, 0f);
+
             if (TimeCal > 0 && !isStart)
             {
                 TimeCal -= Time.deltaTime;

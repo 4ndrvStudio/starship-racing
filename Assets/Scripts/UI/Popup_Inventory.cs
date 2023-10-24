@@ -34,8 +34,9 @@ namespace SR
 
         public override void Hide()
         {
-            base.Hide();
             ClearData();
+            base.Hide();
+            
         }
 
         public void FectData()
