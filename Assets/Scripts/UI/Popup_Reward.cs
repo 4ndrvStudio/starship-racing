@@ -38,7 +38,11 @@ namespace SR.UI
         public override void Show(Dictionary<string, object> customProperties)
         {
             base.Show(customProperties);
-            Reward data = customProperties["data"] as Reward;
+            SoundManager.Instance.PlayOpenBox();
+            OpenBagsRespone reward = customProperties["data"] as OpenBagsRespone;
+            Reward data = reward.Data;
+
+            //Debug.Log(data.Owner);
             if (data.Nft.Count == 0 && data.Owner == null)
             {
                 HideAllContent();
@@ -49,11 +53,14 @@ namespace SR.UI
                 HideAllContent();
                 _content1.SetActive(true);
                 _textAmountOwner1.text = data.Owner.ToString();
+                _textAmountOwner2.text = data.Owner.ToString();
+
             }
             else
             {
                 HideAllContent();
                 _content2.SetActive(true);
+                _textAmountOwner1.text = data.Owner.ToString();
                 _textAmountOwner2.text = data.Owner == null ? "0 Owner" : data.Owner.ToString();
                 _listNftOb.ForEach(ob => Destroy(ob));
                 _listNftOb.Clear();

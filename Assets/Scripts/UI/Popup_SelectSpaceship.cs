@@ -21,6 +21,7 @@ namespace SR
             {
                 typeS.onClick.AddListener(() =>
                 {
+                    SoundManager.Instance.PlaySelect();
                     _typeList.ForEach(t => t.GetComponent<UISpaceshipSelect>().DeSelect());
                     UISpaceshipSelect tokenSelect = typeS.gameObject.GetComponent<UISpaceshipSelect>();
                     tokenSelect.Select();

@@ -19,6 +19,7 @@ namespace SR
 
         [SerializeField] private List<GameObject> _itemList = new();
 
+        private bool _status;
         private void Start()
         {
             _btnAgain.onClick.AddListener(() => UIManager.Instance.ShowPopup(PopupName.SelectSpaceship));
@@ -26,6 +27,17 @@ namespace SR
                 GameplayManager.Instance.QuitGameplay();
                 Hide();
             });
+        }
+
+        public override void Show(Dictionary<string, object> customProperties = null)
+        {
+            base.Show(customProperties);
+            if(_status)
+                SoundManager.Instance.PlayWinning();
+            else
+                SoundManager.Instance.PlayFail();
+
+
         }
 
         public override void Setup(object data)
@@ -37,9 +49,11 @@ namespace SR
 
             _itemList.ForEach(item => Destroy(item));
             _itemList.Clear();
+            _status = status;
             if (status)
             {
                 _textTitle.text = "Win";
+                _textTitle.color = Color.green;
                 startGameRespone.Data.Bags.ForEach(item =>
                 {
                     GameObject itemOb = Instantiate(_itemOb, _itemHolder.transform);
@@ -49,6 +63,7 @@ namespace SR
                 });
             } else {
                 _textTitle.text = "Fail";
+                _textTitle.color = Color.red;
                 GameObject itemOb = Instantiate(_itemOb, _itemHolder.transform);
                 itemOb.GetComponent<ItemSlot>().SetupNull();
                 _itemList.Add(itemOb);

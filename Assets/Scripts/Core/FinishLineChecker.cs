@@ -14,6 +14,8 @@ namespace SR
         {
             if (isComplete == false)
             {
+                SoundManager.Instance.StopBackground();
+
                 StartCoroutine(ShowWinGame());
                 _cine.Follow = this.transform;
                 isComplete = true;

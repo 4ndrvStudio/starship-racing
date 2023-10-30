@@ -73,11 +73,11 @@ namespace SR
               res =>
               {
                   Debug.Log("Synce success " + res);
-                  //GameplayManager.Instance.GetUserProfile();
+                  GameplayManager.Instance.GetUserProfile();
               }
               , err =>
               {
-                  //GameplayManager.Instance.GetUserProfile();
+                  GameplayManager.Instance.GetUserProfile();
                   Debug.Log(err);
               },
                isRoot: true
@@ -99,8 +99,11 @@ namespace SR
                 res =>
                 {
                     Debug.Log(res);
+
+                    GetUserProfile();
                     StartGameRespone respone = JsonConvert.DeserializeObject<StartGameRespone>(res);
                     onSuccess?.Invoke(respone);
+
                 }, err =>
                 {
                     StartGameRespone error = JsonConvert.DeserializeObject<StartGameRespone>(err);

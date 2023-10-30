@@ -10,8 +10,8 @@ namespace SR
     public class UnityApiService : MonoBehaviour
 {
     public static UnityApiService Instance;
-    private const string BaseUrl = "https://dev-api.openworldnft.io/gold-game/";
-    private const string ChildUrl = "https://dev-api.openworldnft.io/spaceships/";
+    private const string BaseUrl = "https://api.openworldnft.io/gold-game/";
+    private const string ChildUrl = "https://api.openworldnft.io/spaceships/";
 
 
     public void Awake()

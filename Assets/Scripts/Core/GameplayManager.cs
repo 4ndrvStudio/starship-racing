@@ -23,7 +23,14 @@ namespace SR
                 Instance = this;
 
             Application.targetFrameRate = 60;
-            WalletConnected();
+            //WalletConnected();
+            StartCoroutine(GetAccount());
+        }
+
+        IEnumerator GetAccount()
+        {
+            yield return new WaitForSeconds(3f);
+            ReactInteractor.Instance.Send_GetAccount();
         }
 
         public void WalletConnected()

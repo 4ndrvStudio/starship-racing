@@ -28,6 +28,8 @@ namespace SR.UI
 
             _btnStart.onClick.AddListener(() => UIManager.Instance.ShowPopup(PopupName.SelectSpaceship));
             _btnQuit.onClick.AddListener(()=>ReactInteractor.Instance.Send_QuitGame());
+            SoundManager.Instance.StopBackground();
+            SoundManager.Instance.PlayBackground(EBackgroundType.Menu);
         }
 
         // Update is called once per frame

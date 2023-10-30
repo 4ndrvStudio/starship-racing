@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace SR
 {
@@ -15,6 +16,9 @@ namespace SR
         [SerializeField] private List<float> targetSpeed;
         [SerializeField] private bool isStart = false;
         [SerializeField] private Transform _followPoint;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _timeAudioClip;
+
         private int _currentSelect;
         private int _resultRank;
         [SerializeField] private float TimeCal =3;
@@ -31,7 +35,11 @@ namespace SR
         // Start is called before the first frame update
         void Start()
         {
+            _audioSource.clip = _timeAudioClip;
+            _audioSource.Play();
             targetSpeed = new();
+            SoundManager.Instance.StopBackground();
+            SoundManager.Instance.PlayBackground(EBackgroundType.Gameplay);
             Setup(GameplayManager.Instance.CurrentSelect);
         }
 
@@ -52,6 +60,7 @@ namespace SR
                 isStart = true;
                 _timeText.gameObject.SetActive(false);
                 StartRace();
+                _audioSource.Stop();
             }
         }
 
@@ -59,15 +68,15 @@ namespace SR
         {
 
             Debug.Log("Call");
-            float speed = 20f;
+            float speed = 25f;
             targetSpeed.Add(speed);
-            float speed2 = Random.Range(speed + 0.5f, speed + 2f);
+            float speed2 = Random.Range(speed + 0.1f, speed + 0.3f);
             targetSpeed.Add(speed2);
-            targetSpeed.Add(Random.Range(speed2 + 0.5f, speed2 + 2f));
+            targetSpeed.Add(Random.Range(speed2 + 0.1f, speed2 + 0.3f));
             Debug.Log(targetSpeed.Count);
             float targetSpacshipSpeed1 = targetSpeed[_resultRank];
             targetSpeed.RemoveAt(_resultRank);
-            _spaceshipsList[_currentSelect].transform.DOMoveY(60f, targetSpacshipSpeed1).SetEase(Ease.InSine);
+            _spaceshipsList[_currentSelect].transform.DOMoveY(230f, targetSpacshipSpeed1).SetEase(Ease.InSine);
 
             for (int i = 0; i< _spaceshipsList.Count; i++)
             {
@@ -77,11 +86,11 @@ namespace SR
                     {
                         int index = Random.Range(0,targetSpeed.Count);
                         float targetSpacshipSpeed = targetSpeed[index];
-                        _spaceshipsList[i].transform.DOMoveY(60f, targetSpacshipSpeed).SetEase(Ease.InSine);
+                        _spaceshipsList[i].transform.DOMoveY(230f, targetSpacshipSpeed).SetEase(Ease.InSine);
                         targetSpeed.RemoveAt(index);
                     } else
                     {
-                        _spaceshipsList[i].transform.DOMoveY(60f, targetSpeed[0]).SetEase(Ease.InSine);
+                        _spaceshipsList[i].transform.DOMoveY(230f, targetSpeed[0]).SetEase(Ease.InSine);
 
                     }
 
