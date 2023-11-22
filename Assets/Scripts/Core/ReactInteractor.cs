@@ -17,9 +17,6 @@ namespace SR
     {
         public static ReactInteractor Instance;
 
-        [SerializeField] private GameObject _uiMobile;
-        [SerializeField] private GameObject _uiDesktop;
-
         public void Awake()
         {
             if (Instance == null)
@@ -138,6 +135,36 @@ namespace SR
 
             UIManager.Instance.ShowPopup(PopupName.BuyMoreTurn, dict);
         }
+
+
+         [DllImport("__Internal")]
+        private static extern void MintNft(int rarity, int nonce, string signature, string id);
+        public void Send_MintNft(int rarity, int nonce, string signature, string id)
+        {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+                MintNft(rarity,nonce,signature,id);
+#endif
+        }
+
+        public void Receive_MintNftResult(string result)
+        {
+            UIManager.Instance.HidePopup(PopupName.Waiting);
+            Dictionary<string,object> handleParams = new Dictionary<string, object>();
+            if(result.Contains("Successfully")) {
+                handleParams.Add("isSuccess",true);
+            } else {
+                handleParams.Add("isSuccess",false);
+                handleParams.Add("message",result);
+            }
+            UIManager.Instance.ShowPopup(PopupName.MintNftResult,handleParams);
+        }
+
+        public void Receive_SetEnvironment(string environment)
+        {
+           UnityApiService.Instance.SetEnvironment(environment);
+
+        }
+
 
 
 

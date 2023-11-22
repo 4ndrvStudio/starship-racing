@@ -18,7 +18,9 @@ namespace SR.UI
         OpenAnimation,
         RequestBuyTurn,
         SomethingError,
-        SelectSpaceship
+        SelectSpaceship,
+        MintNft,
+        MintNftResult
 
     }
 

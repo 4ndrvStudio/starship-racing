@@ -182,6 +182,31 @@ namespace SR
             );
         }
 
+        public void GetSignature(string rarity, string nftId, Action<SignatureRespone> onSuccess = null, Action onFail = null)
+        {
+             SignatureRequest signatureRequest = new SignatureRequest()
+            {
+                address = UserData.UserAddress,
+                nftId  = nftId,
+                rarity = rarity
+            };
+
+            string json = JsonUtility.ToJson(signatureRequest);
+
+            UnityApiService.Instance.Post("signature-mint-nft", null, json,
+              res =>
+              {
+                SignatureRespone signature = JsonConvert.DeserializeObject<SignatureRespone>(res);
+                onSuccess?.Invoke(signature);
+              }
+              , err =>
+              {
+                  Debug.Log(err);
+                  onFail?.Invoke();
+              },
+              isRoot: true);
+        }
+
 
 
     }
@@ -204,6 +229,7 @@ namespace SR
         public string CurrentStageId;
         public string CurrentRoundId;
         public ulong Owner;
+        public List<Nft> Nfts;
     }
     public class SynceProfileRequest
     {
@@ -276,6 +302,40 @@ namespace SR
         public string? Error;
         public string? Message;
     }
+
+     public class Nft
+    {
+        [JsonProperty("_id")] public string Id;
+        public int Rarity;
+        public string CollectionType;
+        public string UserAddress;
+        public int Status;
+        public string Url;
+        public string Name;
+        public string Price;
+    }
+
+    
+    public class SignatureRequest
+    {
+        public string address;
+        public string rarity;
+        public string nftId;
+    }
+
+    public class SignatureRespone
+    {
+        public Signature Data;
+    }
+
+    public class Signature
+    {
+        public string Sig;
+        public int Nonce;
+        public string Rarity;
+        public string NftId;
+    }
+
 
 
 }

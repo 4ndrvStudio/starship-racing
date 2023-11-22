@@ -10,14 +10,30 @@ namespace SR
     public class UnityApiService : MonoBehaviour
 {
     public static UnityApiService Instance;
-    private const string BaseUrl = "https://api.openworldnft.io/gold-game/";
-    private const string ChildUrl = "https://api.openworldnft.io/spaceships/";
+    private string BaseUrl = "https://api.openworldnft.io/gold-game/";
+    private string ChildUrl = "https://api.openworldnft.io/spaceships/";
 
 
     public void Awake()
     {
         if (Instance == null)
             Instance = this;
+    }
+
+    public void SetEnvironment(string environment) 
+    {
+        switch(environment) {
+            case "dev" : 
+                BaseUrl  = "https://dev-api.openworldnft.io/gold-game/";
+                ChildUrl = "https://dev-api.openworldnft.io/spaceships/";
+                Debug.Log("Environment has been setup to Development!");
+                break;
+            case "production":
+                BaseUrl  = "https://api.openworldnft.io/gold-game/";
+                ChildUrl = "https://api.openworldnft.io/spaceships/";
+                Debug.Log("Environment has been setup to Production!");
+                break;
+        }
     }
 
     public void Get(string collection, string key, string queryvalue, Action<string> respone = null, Action<string> error = null,bool isRoot = false)

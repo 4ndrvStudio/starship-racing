@@ -19,6 +19,11 @@ mergeInto(LibraryManager.library, {
   QuitGame: function () {
     window.dispatchReactUnityEvent("QuitGame");
   },
+  MintNft: function (rarity,nonce,signature,id) {
+   
+    window.dispatchReactUnityEvent("MintNft",rarity,nonce,UTF8ToString(signature),UTF8ToString(id));
+  },
+  
   
    // override default callback
    emscripten_set_wheel_callback_on_thread: function (
