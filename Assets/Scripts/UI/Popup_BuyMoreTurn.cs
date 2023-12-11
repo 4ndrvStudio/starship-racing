@@ -147,7 +147,7 @@ namespace SR.UI
                 });
 
             });
-            _tokenSelectList[0].onClick.Invoke();
+            _tokenSelectList[1].onClick.Invoke();
 
         }
 
