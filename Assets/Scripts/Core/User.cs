@@ -14,6 +14,8 @@ namespace SR
         public UserData UserData;
         public int SynceTime = 0;
         public string RoundId;
+        public long OwnerToken;
+
 
         void Awake()
         {
@@ -23,6 +25,8 @@ namespace SR
 
         public void GetUserProfile(Action onGetSuccess = null)
         {
+            ReactInteractor.Instance.Send_GetOwnerToken();
+
             UnityApiService.Instance.Get("profile", "address", UserAddress,
               res =>
               {
@@ -228,7 +232,7 @@ namespace SR
         public int UsdBuyed;
         public string CurrentStageId;
         public string CurrentRoundId;
-        public ulong Owner;
+        public long Owner;
         public List<Nft> Nfts;
     }
     public class SynceProfileRequest

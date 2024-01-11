@@ -77,7 +77,7 @@ namespace SR.UI
             {
                 HideAllPanel();
                 _waitingContent.SetActive(true);
-                ReactInteractor.Instance.Send_Approve();
+                ReactInteractor.Instance.Send_Approve(_currentType);
             });
             _buttonClose.ForEach(button =>
             {
@@ -147,7 +147,7 @@ namespace SR.UI
                 });
 
             });
-            _tokenSelectList[1].onClick.Invoke();
+            _tokenSelectList[0].onClick.Invoke();
 
         }
 
@@ -165,27 +165,33 @@ namespace SR.UI
                     _waitingContent.gameObject.SetActive(true);
                     break;
                 case 3:
+                    ReactInteractor.Instance.Send_BuyTurn(_buyCount, _currentType);
                     _waitingContent.gameObject.SetActive(true);
-                    User.Instance.BuyTurnBuyOwner((ulong)(_buyCount * (int)_currentPrice),
-                    () =>
-                    {
-                        HideAllPanel();
-                        _resultContent.SetActive(true);
-                        _textResultMessage.text = "Buy Success!";
-                        _status = true;
-                        _textButtonContinue.text = "Continue";
-                    }, (err) =>
-                    {
-                        HideAllPanel();
-                        _resultContent.SetActive(true);
-                        _textResultMessage.text = "Not Enough OWNER!";
-                        _status = false;
-                        _textButtonContinue.text ="Try again";
-                    });
+
+                    //User.Instance.BuyTurnBuyOwner((ulong)(_buyCount * (int)_currentPrice),
+                    //() =>
+                    //{
+                    //    HideAllPanel();
+                    //    _resultContent.SetActive(true);
+                    //    _textResultMessage.text = "Buy Success!";
+                    //    _status = true;
+                    //    _textButtonContinue.text = "Continue";
+                    //}, (err) =>
+                    //{
+                    //    HideAllPanel();
+                    //    _resultContent.SetActive(true);
+                    //    _textResultMessage.text = "Not Enough OWNER!";
+                    //    _status = false;
+                    //    _textButtonContinue.text ="Try again";
+                    //});
 
                     break;
 
             }
+        }
+        private void Update()
+        {
+            _textOwnerBalance.text = "Your Owner: " + User.Instance.OwnerToken.ToString("N0") + " Owner";
         }
 
         public void UpdatePrice()
@@ -201,7 +207,7 @@ namespace SR.UI
             }
 
             if(_currentType == 3 ) {
-                _textTotal.color = User.Instance.UserData.Owner < _currentPrice*_buyCount? Color.red : Color.white;
+                _textTotal.color = User.Instance.OwnerToken < _currentPrice*_buyCount? Color.red : Color.white;
             } else
             {
                 _textTotal.color = Color.white;
@@ -210,8 +216,11 @@ namespace SR.UI
 
         public override void Show(Dictionary<string, object> customProperties)
         {
+
             base.Show(customProperties);
-            _textOwnerBalance.text = "Your Owner: " + User.Instance.UserData.Owner.ToString("N0") + " Owner";
+            ReactInteractor.Instance.Send_GetOwnerToken();
+
+            _textOwnerBalance.text = "Your Owner: " + User.Instance.OwnerToken.ToString("N0") + " Owner";
 
             bool isSuccess = bool.Parse(customProperties["isSuccess"].ToString());
             bool isStartBuy = bool.Parse(customProperties["isStartBuy"].ToString());

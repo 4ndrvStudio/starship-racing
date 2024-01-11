@@ -13,11 +13,14 @@ mergeInto(LibraryManager.library, {
   BuyTurn: function (count, type) {
     window.dispatchReactUnityEvent("BuyTurn",count, type);
   },
-  Approve: function () {
-    window.dispatchReactUnityEvent("Approve");
+  Approve: function (type) {
+    window.dispatchReactUnityEvent("Approve",type);
   },
   QuitGame: function () {
     window.dispatchReactUnityEvent("QuitGame");
+  },
+  GetOwnerToken: function () {
+    window.dispatchReactUnityEvent("GetOwnerToken");
   },
   MintNft: function (rarity,nonce,signature,id) {
    

@@ -3774,6 +3774,7 @@ MonoBehaviour:
     Owner: 0
   SynceTime: 0
   RoundId: 
+  OwnerToken: 0
 --- !u!114 &574912476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18486,7 +18487,6 @@ GameObject:
   - component: {fileID: 1842128509261590432}
   - component: {fileID: 973844415993516345}
   - component: {fileID: 8461698696838241423}
-  - component: {fileID: 8461698696838241424}
   m_Layer: 5
   m_Name: Owner
   m_TagString: Untagged
@@ -25278,18 +25278,6 @@ MonoBehaviour:
   ActiveOb: {fileID: 7824142316175880945}
   DeActiveOb: {fileID: 564752202052451449}
   Price: 20000
---- !u!225 &8461698696838241424
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3123513963655941341}
-  m_Enabled: 1
-  m_Alpha: 0.1
-  m_Interactable: 0
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!222 &8480995371440737380
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -108,12 +108,12 @@ namespace SR
         }
 
         [DllImport("__Internal")]
-        private static extern void Approve();
+        private static extern void Approve(int type);
         //public void buyturn 
-        public void Send_Approve()
+        public void Send_Approve(int type)
         {
 #if UNITY_WEBGL == true && UNITY_EDITOR == false
-                Approve();
+                Approve(type);
 #endif
         }
 
@@ -164,6 +164,21 @@ namespace SR
            UnityApiService.Instance.SetEnvironment(environment);
 
         }
+
+        [DllImport("__Internal")]
+        private static extern void GetOwnerToken();
+        public void Send_GetOwnerToken()
+        {
+#if UNITY_WEBGL == true && UNITY_EDITOR == false
+                GetOwnerToken();
+#endif
+        }
+
+        public void Receive_GetOwnerToken(string token)
+        {
+            User.Instance.OwnerToken = long.Parse(token);
+        }
+
 
 
 
